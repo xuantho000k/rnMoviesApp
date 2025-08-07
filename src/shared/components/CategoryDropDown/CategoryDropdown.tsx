@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet } from 'react-native'
-import { CATEGORY_OPTION, CategoryOption } from '../types/category-options'
+import { CategoryOption } from './categoryOption'
 
 type CategoryDropdownProps = {
+  categoryOptions: CategoryOption[]
   selectedCategory: CategoryOption
   onCategoryChange: (category: CategoryOption) => void
 }
 
-const CategoryDropdown = ({ selectedCategory, onCategoryChange }: CategoryDropdownProps) => {
+const CategoryDropdown = ({ categoryOptions, selectedCategory, onCategoryChange }: CategoryDropdownProps) => {
   const [visible, setVisible] = useState(false)
 
   const handleSelect = (value: CategoryOption) => {
@@ -15,7 +16,7 @@ const CategoryDropdown = ({ selectedCategory, onCategoryChange }: CategoryDropdo
     setVisible(false)
   }
 
-  const selectedLabel = CATEGORY_OPTION.find(opt => opt.value === selectedCategory.value)?.label || ''
+  const selectedLabel = categoryOptions.find(opt => opt.value === selectedCategory.value)?.label || ''
 
   return (
     <View>
@@ -28,7 +29,7 @@ const CategoryDropdown = ({ selectedCategory, onCategoryChange }: CategoryDropdo
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Category</Text>
             <FlatList
-              data={CATEGORY_OPTION}
+              data={categoryOptions}
               keyExtractor={item => item.value}
               renderItem={({ item }) => (
                 <TouchableOpacity

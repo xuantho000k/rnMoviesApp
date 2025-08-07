@@ -1,5 +1,5 @@
 import { ApiResponse } from 'apisauce'
-import { createApiClient } from '../../../../services/api-client'
+import { createApiClient } from '../../../../services/apiClient'
 import { Configs } from '../../../../utils/configs'
 
 export const movieAPIClient = createApiClient(Configs.API_BASE_URL ?? '')

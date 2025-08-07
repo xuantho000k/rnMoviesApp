@@ -1,29 +1,30 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { Movie } from '../types/movie'
 import FastImage from 'react-native-fast-image'
 import { Configs } from '../../../../utils/configs'
 
 type MovieCardProps = {
   movie: Movie
+  onPress?: (movieId: number) => void
 }
 
-const MovieCard = ({ movie }: MovieCardProps) => {
+const MovieCard = ({ movie, onPress }: MovieCardProps) => {
   return (
-    <View style={styles.card}>
-      <FastImage source={{
-        uri: `${Configs.API_BASE_URL}${movie.posterUrl}`,
-        priority: FastImage.priority.normal, 
-        headers: { Authorization: `Bearer ${Configs.API_ACCESS_TOKEN_UATH}` }
-      }} style={styles.poster} />
-      <View style={styles.info}>
-        <View>
-          <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{movie.title}</Text>
-          <Text style={styles.releaseDate} numberOfLines={1} ellipsizeMode="tail">{movie.releaseDate}</Text>
+    <Pressable onPress={() => onPress?.(movie.id)}>
+      <View style={styles.card}>
+        <FastImage source={{
+          uri: `${Configs.IMAGE_BASE_URL}${movie.posterUrl}`
+        }} style={styles.poster} />
+        <View style={styles.info}>
+          <View>
+            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{movie.title}</Text>
+            <Text style={styles.releaseDate} numberOfLines={1} ellipsizeMode="tail">{movie.releaseDate}</Text>
+          </View>
+          <Text style={styles.overview} numberOfLines={2} ellipsizeMode='tail'>{movie.overview}</Text>
         </View>
-        <Text style={styles.overview} numberOfLines={2} ellipsizeMode='tail'>{movie.overview}</Text>
       </View>
-    </View>
+    </Pressable>
   )
 }
 

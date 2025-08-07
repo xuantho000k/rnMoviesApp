@@ -1,8 +1,7 @@
-import { Movie } from '../types/movie'
-import { movieAPIClient } from './movie-api-client'
+import { Movie } from "../../types/movie";
+import { movieAPIClient } from "../movieAPIClient";
 
-const moviesService = {
-  fetchMovies: async (category: string, searchTerm?: string, page = 1) => {
+export const movieList = async (category: string, searchTerm?: string, page = 1) => {
     try {
       const params: { query?: string; page?: number } = {
         page: page,
@@ -30,17 +29,4 @@ const moviesService = {
       console.error('Error fetching movies:', error)
       throw error
     }
-  },
-
-  fetchMovieDetails: async (movieId: number) => {
-    try {
-      const response = await movieAPIClient.get(`/movie/${movieId}`)
-      return response.data
-    } catch (error) {
-      console.error('Error fetching movie details:', error)
-      throw error
-    }
-  },
-}
-
-export default moviesService
+  }

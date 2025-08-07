@@ -18,6 +18,8 @@ npm start
 yarn start
 ```
 
+**Notes**: If you get an error about dependency conflict, you can resolve by option `--legacy-peer-deps or --force`
+
 ## Step 2: Build and run your app
 
 With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:

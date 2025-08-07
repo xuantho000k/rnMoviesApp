@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import moviesService from '../services/movies-service'
+import moviesServices from '../services/movie-services/moviesServices'
 
 type UseMoviesParams = {
   category: string
@@ -14,7 +14,7 @@ export const useMovies = ({
 }: UseMoviesParams) => {
   return useQuery({
     queryKey: ['ListMovies', category, searchTerm, page],
-    queryFn: () => moviesService.fetchMovies(category, searchTerm, page),
+    queryFn: () => moviesServices.fetchMovies(category, searchTerm, page),
     placeholderData: previousData => previousData,
   })
 }

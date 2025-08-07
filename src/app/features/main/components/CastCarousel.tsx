@@ -1,44 +1,32 @@
-import React from 'react'
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
+import { FlatList, StyleSheet } from "react-native"
+import { CastCard } from "./CastCard"
+import { CastMember } from "../types/movieCredit"
+import { useCallback } from "react"
 
-const CastCarousel = ({ cast }) => {
-  const renderItem = ({ item }) => (
-    <View style={styles.castItem}>
-      <Image source={{ uri: item.profile_path }} style={styles.castImage} />
-      <Text style={styles.castName}>{item.name}</Text>
-    </View>
-  )
+type CastListProps = {
+  cast: CastMember[]
+}
 
-  return (
-    <View style={styles.carouselContainer}>
-      <FlatList
-        data={cast}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      />
-    </View>
-  )
+export const CastCarousel = ({ cast }: CastListProps) => {
+    const renderItem = useCallback(({ item }: { item: CastMember }) => (
+        <CastCard item={item} />
+    ), [])
+
+    return (
+        <FlatList
+            horizontal
+            data={cast}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            showsHorizontalScrollIndicator={false}
+            style={styles.castList}
+            removeClippedSubviews={true}
+        />
+    )
 }
 
 const styles = StyleSheet.create({
-  carouselContainer: {
-    paddingVertical: 10,
-  },
-  castItem: {
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  castImage: {
-    width: 100,
-    height: 150,
-    borderRadius: 10,
-  },
-  castName: {
-    marginTop: 5,
-    textAlign: 'center',
-  },
+    castList: {
+        marginBottom: 16,
+    },
 })
-
-export default CastCarousel

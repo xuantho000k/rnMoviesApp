@@ -6,7 +6,12 @@ import HomeScreen from '../features/main/screens/HomeScreen'
 import DetailScreen from '../features/main/screens/DetailScreen'
 import WatchlistScreen from '../features/main/screens/WatchlistScreen'
 
-const Stack = createNativeStackNavigator()
+export type RootStackParamList = {
+  Home: undefined
+  Detail: { movieId: number }
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>()
 const Tab = createBottomTabNavigator()
 
 const HomeStack = () => (

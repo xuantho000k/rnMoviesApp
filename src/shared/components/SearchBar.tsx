@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native'
 
 type SearchBarProps = {
-  onSearch: (searchTerm: string) => void
+  onSearchTermChange: (searchTerm: string) => void
 }
 
-const SearchBar = ({ onSearch } : SearchBarProps ) => {
+const SearchBar = ({ onSearchTermChange } : SearchBarProps ) => {
   const [searchTerm, setSearchTerm] = useState('')
 
-  const handleSearch = () => {
-    onSearch(searchTerm)
-    setSearchTerm('')
+  const onChangeText = (text: string) => {
+    setSearchTerm(text)
+    onSearchTermChange(text)
   }
 
   return (
@@ -19,9 +19,8 @@ const SearchBar = ({ onSearch } : SearchBarProps ) => {
         style={styles.input}
         placeholder="Search..."
         value={searchTerm}
-        onChangeText={setSearchTerm}
+        onChangeText={onChangeText}
       />
-      <Button title="Search" onPress={handleSearch} />
     </View>
   )
 }

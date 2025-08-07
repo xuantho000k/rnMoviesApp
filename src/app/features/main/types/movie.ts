@@ -4,5 +4,4 @@ export type Movie = {
   posterUrl: string
   overview: string
   releaseDate: string
-  // Add other fields as needed
 }
