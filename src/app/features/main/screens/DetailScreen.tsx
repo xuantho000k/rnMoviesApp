@@ -7,6 +7,8 @@ import FastImage from 'react-native-fast-image'
 import { Configs } from '../../../../utils/configs'
 import { CastCarousel } from '../components/CastCarousel'
 import { useCredits } from '../hooks/useCredits'
+import { Error } from '../../../../shared/components/Error'
+import { Loading } from '../../../../shared/components/Loading'
 
 type DetailScreenProps = NativeStackScreenProps<RootStackParamList, 'Detail'>
 
@@ -15,8 +17,12 @@ const DetailScreen = ({ route }: DetailScreenProps) => {
   const { data, isLoading, error } = useMovie(movieId)
   const { data: credit } = useCredits(movieId)
 
-  if (isLoading) return <Text>Loading...</Text>
-  if (error) return <Text>Error fetching movie details</Text>
+  if (isLoading) {
+    return <Loading />
+  }
+  if (error) {
+    return <Error message={error.message} />
+  }
   if (!data) return <Text>No movie details found</Text>
 
   return (

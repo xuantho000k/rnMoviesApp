@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import CategoryDropdown from '../../../../shared/components/CategoryDropDown/CategoryDropdown'
 import SearchBar from '../../../../shared/components/SearchBar'
 import MovieList from '../components/MovieList'
@@ -10,6 +10,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../navigators/AppNavigator'
 import { CATEGORY_OPTION } from '../constants/constants'
 import { SearchButton } from '../components/SearchButton'
+import { Loading } from '../../../../shared/components/Loading'
+import { Error } from '../../../../shared/components/Error'
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>()
@@ -23,10 +25,10 @@ const HomeScreen = () => {
   })
 
   if (isLoading) {
-    return <View style={styles.container}><Text>Loading...</Text></View>
+    return <Loading />
   }
   if (error) {
-    return <View style={styles.container}><Text>Error fetching movies</Text></View>
+    return <Error message={error.message} />
   }
 
   const handleSearch = () => {
